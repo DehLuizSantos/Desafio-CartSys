@@ -17,9 +17,9 @@ export function DoubleNavbar({ expand, setExpand, setTitle }: DoubleNavbarProps)
 
   const linksValues = [
     {
-      label: 'Usuários',
+      label: 'Clientes',
       icon: IconUser,
-      link: '/usuarios',
+      link: '/clientes',
     },
   ];
 

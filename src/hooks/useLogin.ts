@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { LoginType, UserType } from '../pages/Login/interface';
+import { LoginType, UserType } from '../interfaces/user.interface';
 import store from 'store2';
 import { useQueryClient } from '@tanstack/react-query';
 

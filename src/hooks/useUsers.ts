@@ -1,27 +1,29 @@
-import store from 'store2';
-import { UsuarioType } from '../pages/Usuario/interface';
+import { ClientType } from '../pages/Clientes/interface';
+import { useStore } from 'zustand';
+import { useclientsStore } from '../store/Clientes';
 
 export const useUser = () => {
-  const users = [
-    {
-      admin: false,
-      email: 'exemplo@exemplo.com',
-      id: 1,
-      nome: 'exemplo',
-    },
-  ];
+  const { addclient, clients, deleteclient, editclient } = useStore(useclientsStore);
   const handleGetUsers = async () => {
-    return users;
+    return clients;
   };
 
-  const handlePostUser = async (user: UsuarioType) => {
-    return users;
+  const handlePostUser = async (user: ClientType) => {
+    const body = {
+      ...user,
+      id: clients.length,
+    };
+
+    addclient(body);
+    return clients;
   };
-  const handlePutUser = async (user: UsuarioType) => {
-    return users;
+  const handlePutUser = async (id: number | null, user: ClientType) => {
+    editclient(id, user);
+    return clients;
   };
-  const handleDelete = async (id: string) => {
-    return users;
+  const handleDelete = async (id: number | null) => {
+    deleteclient(id);
+    return clients;
   };
 
   return { handleGetUsers, handlePostUser, handlePutUser, handleDelete };

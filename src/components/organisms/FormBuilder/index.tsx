@@ -13,7 +13,6 @@ import {
 } from '@mantine/core';
 import { FormButton } from '../../molecules/FormButton';
 import { FormBuildWrapper } from './styles';
-import MultiSelectCustom from '../../atomos/MultiSelect';
 import {
   CnpjMaskedTextField,
   MaskedCelPhone,
@@ -21,6 +20,8 @@ import {
   removeAllEspetialCaracters,
 } from '../../../utils/Utils';
 import { DateInputCustom } from '../../atomos/DateInputCustom';
+import { InputCnpj } from '../../atomos/InputCnpj';
+import { Inputcpf } from '../../atomos/inputCpf';
 
 export interface Field {
   type: string;
@@ -204,19 +205,14 @@ const FormBuilder: React.FC<FormBuilderProps> = ({ fields, form, onSubmit, onCan
     if (type === 'cnpj') {
       return (
         <Grid.Col span={col} key={name}>
-          <TextInput
-            data-autofocus={focus}
-            {...form.getInputProps('cnpj')}
-            value={CnpjMaskedTextField(form.getInputProps('cnpj')?.value)}
-            onChange={(event) =>
-              form.setFieldValue('cnpj', removeAllEspetialCaracters(event.target.value))
-            }
-            label={'CNPJ'}
-            maxLength={18}
-            error={form.getInputProps('cnpj')?.error}
-            withAsterisk={required}
-            placeholder={'00.000.000/0000-00'}
-          />
+          <InputCnpj form={form} focus={focus} />
+        </Grid.Col>
+      );
+    }
+    if (type === 'cpf') {
+      return (
+        <Grid.Col span={col} key={name}>
+          <Inputcpf form={form} focus={focus} />
         </Grid.Col>
       );
     }
@@ -253,13 +249,6 @@ const FormBuilder: React.FC<FormBuilderProps> = ({ fields, form, onSubmit, onCan
       );
     }
 
-    if (type === 'multi') {
-      return (
-        <Grid.Col span={col} key={name}>
-          <MultiSelectCustom data-autofocus={focus} name={name} data={data ?? []} form={form} />
-        </Grid.Col>
-      );
-    }
     if (type === 'valor') {
       return (
         <Grid.Col span={col} key={name}>

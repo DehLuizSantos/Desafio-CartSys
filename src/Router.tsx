@@ -1,5 +1,5 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { Usuarios } from './pages/Usuario';
+import { Clientes } from './pages/Clientes';
 import { LoginPage } from './pages/Login';
 import { NewPainelShell } from './components/modules/AppShell';
 
@@ -9,10 +9,10 @@ const router = createBrowserRouter([
     element: <LoginPage />,
   },
   {
-    path: '/usuarios',
+    path: '/clientes',
     element: (
       <NewPainelShell>
-        <Usuarios />
+        <Clientes />
       </NewPainelShell>
     ),
   },

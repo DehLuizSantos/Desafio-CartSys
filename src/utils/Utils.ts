@@ -11,6 +11,18 @@ export function CnpjMaskedTextField(value: string): string {
     .replace(/(-\d{2})\d+?$/, '$1'); // captura os dois últimos 2 números, com um - antes dos dois números
 }
 
+export function CpfMasketTextField(value: string): string {
+  if (!value) {
+    return '';
+  }
+  const cpf = value
+    .replace(/\D/g, '')
+    .replace(/(\d{3})(\d)/, '$1.$2')
+    .replace(/(\d{3})(\d)/, '$1.$2')
+    .replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+  return cpf;
+}
+
 export const MaskedIE = (value: string) => {
   if (!value) {
     return '';
@@ -92,6 +104,48 @@ export function validateCnpj(value: string) {
   // Valida 2o. dígito verificador
   const digit1 = calc(13);
   return digit1 === digits[1];
+}
+
+export function validateCpf(strCPF: string) {
+  const exp = /\.|-/g;
+  strCPF = strCPF.toString().replace(exp, '');
+
+  if (!strCPF) {
+    return false;
+  }
+  if (
+    strCPF.length !== 11 ||
+    strCPF === '00000000000' ||
+    strCPF === '11111111111' ||
+    strCPF === '22222222222' ||
+    strCPF === '33333333333' ||
+    strCPF === '44444444444' ||
+    strCPF === '55555555555' ||
+    strCPF === '66666666666' ||
+    strCPF === '77777777777' ||
+    strCPF === '88888888888' ||
+    strCPF === '99999999999'
+  )
+    return false;
+
+  let Soma;
+  let Resto;
+  Soma = 0;
+  if (strCPF === '00000000000') return false;
+
+  for (let i = 1; i <= 9; i++) Soma = Soma + parseInt(strCPF.substring(i - 1, i)) * (11 - i);
+  Resto = (Soma * 10) % 11;
+
+  if (Resto === 10 || Resto === 11) Resto = 0;
+  if (Resto !== parseInt(strCPF.substring(9, 10))) return false;
+
+  Soma = 0;
+  for (let i = 1; i <= 10; i++) Soma = Soma + parseInt(strCPF.substring(i - 1, i)) * (12 - i);
+  Resto = (Soma * 10) % 11;
+
+  if (Resto === 10 || Resto === 11) Resto = 0;
+  if (Resto !== parseInt(strCPF.substring(10, 11))) return false;
+  return true;
 }
 
 export const MaskedCelPhone = (number: any) => {
