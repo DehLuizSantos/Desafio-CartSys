@@ -10,7 +10,7 @@ import { ModalDefault } from '../../components/molecules/ModalDefault';
 import FormBuilder, { Field } from '../../components/organisms/FormBuilder';
 import { notifications } from '@mantine/notifications';
 import { ModalDelete } from '../../components/molecules/ModalDelete';
-import { ClientInitialvalues, userSchema, ClientType } from '../../interfaces/user.interface';
+import { ClientInitialvalues, userSchema, ClientType } from '../../interfaces/client.interface';
 import { Group, Radio } from '@mantine/core';
 
 export function Clientes() {

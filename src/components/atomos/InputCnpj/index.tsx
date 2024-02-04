@@ -1,10 +1,10 @@
 import { TextInput } from '@mantine/core';
 import { CnpjMaskedTextField, removeAllEspetialCaracters } from '../../../utils/Utils';
 import { UseFormReturnType } from '@mantine/form';
-import { UserType } from '../../../interfaces/user.interface';
+import { ClientType } from '../../../interfaces/client.interface';
 
 interface InputCnpjProps {
-  form: UseFormReturnType<UserType>;
+  form: UseFormReturnType<ClientType>;
   focus?: boolean;
 }
 

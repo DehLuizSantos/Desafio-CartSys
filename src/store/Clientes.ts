@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { ClientType } from '../pages/Clientes/interface';
+import { ClientType } from '../interfaces/client.interface';
 
 interface clientStoreType {
   clients: ClientType[];
@@ -14,6 +14,7 @@ const clients: ClientType[] = [
     id: 0,
     nome: 'exemplo',
     cpf: '08160936958',
+    cnpj: null,
   },
 ];
 

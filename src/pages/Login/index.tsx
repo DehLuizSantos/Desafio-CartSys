@@ -3,7 +3,7 @@ import { useForm, zodResolver } from '@mantine/form';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import { notifications } from '@mantine/notifications';
-import { LoginInitialValues, LoginType, loginSchema } from '../../interfaces/user.interface';
+import { LoginInitialValues, LoginType, loginSchema } from '../../interfaces/client.interface';
 import { useLogin } from '../../hooks/useLogin';
 import FormBuilder from '../../components/organisms/FormBuilder';
 import * as S from './styles';

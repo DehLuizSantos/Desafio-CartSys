@@ -1,7 +1,7 @@
 import { TextInput } from '@mantine/core';
 import { CpfMasketTextField, removeAllEspetialCaracters } from '../../../utils/Utils';
 import { UseFormReturnType } from '@mantine/form';
-import { ClientType } from '../../../interfaces/user.interface';
+import { ClientType } from '../../../interfaces/client.interface';
 
 interface InputcpfProps {
   form: UseFormReturnType<ClientType>;

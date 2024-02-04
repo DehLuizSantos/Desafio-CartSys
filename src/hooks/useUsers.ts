@@ -1,6 +1,6 @@
-import { ClientType } from '../pages/Clientes/interface';
 import { useStore } from 'zustand';
 import { useclientsStore } from '../store/Clientes';
+import { ClientType } from '../interfaces/client.interface';
 
 export const useUser = () => {
   const { addclient, clients, deleteclient, editclient } = useStore(useclientsStore);
