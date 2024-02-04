@@ -22,6 +22,7 @@ import {
 import { DateInputCustom } from '../../atomos/DateInputCustom';
 import { InputCnpj } from '../../atomos/InputCnpj';
 import { Inputcpf } from '../../atomos/inputCpf';
+import InputValor from '../../atomos/InputValor';
 
 export interface Field {
   type: string;
@@ -179,29 +180,7 @@ const FormBuilder: React.FC<FormBuilderProps> = ({ fields, form, onSubmit, onCan
         </Grid.Col>
       );
     }
-    if (type === 'textarea-script') {
-      return (
-        <Grid.Col span={col} key={name}>
-          <ScrollArea type="always" h={500}>
-            <Textarea
-              styles={customTextareaStyles}
-              autosize
-              label={label}
-              withAsterisk={required}
-              {...form.getInputProps(name)}
-              data-autofocus={focus}
-            />
-          </ScrollArea>
-        </Grid.Col>
-      );
-    }
-    if (type === 'date') {
-      return (
-        <Grid.Col span={col} key={name}>
-          <DateInputCustom data-autofocus={focus} label={label} form={form} name={name} />
-        </Grid.Col>
-      );
-    }
+
     if (type === 'cnpj') {
       return (
         <Grid.Col span={col} key={name}>
@@ -216,62 +195,13 @@ const FormBuilder: React.FC<FormBuilderProps> = ({ fields, form, onSubmit, onCan
         </Grid.Col>
       );
     }
-    if (type === 'ie') {
-      return (
-        <Grid.Col span={col} key={name}>
-          <TextInput
-            data-autofocus={focus}
-            {...form.getInputProps('ie')}
-            value={MaskedIE(form.getInputProps('ie')?.value)}
-            label={'IE'}
-            maxLength={maxLength}
-            error={form.getInputProps('ie')?.error}
-            withAsterisk={required}
-            placeholder={'000.000.000.000'}
-          />
-        </Grid.Col>
-      );
-    }
-    if (type === 'telefone') {
-      return (
-        <Grid.Col span={col} key={name}>
-          <TextInput
-            data-autofocus={focus}
-            {...form.getInputProps('telefone')}
-            value={MaskedCelPhone(form.getInputProps('telefone')?.value)}
-            label={'Telefone'}
-            error={form.getInputProps('telefone')?.error}
-            withAsterisk={required}
-            maxLength={maxLength}
-            placeholder={'(00) 00000-0000'}
-          />
-        </Grid.Col>
-      );
-    }
 
     if (type === 'valor') {
       return (
         <Grid.Col span={col} key={name}>
-          <NumberInput
-            data-autofocus={focus}
-            placeholder={placeholder}
-            label={label}
-            withAsterisk={required}
-            maxLength={maxLength}
-            decimalSeparator=","
-            precision={2}
-            value={form.getInputProps(name)?.value?.toLocaleString('pt-br', {
-              style: 'currency',
-              currency: 'BRL',
-            })}
-            {...form.getInputProps(name)}
-            min={100}
-            onChange={(ev) => {
-              form.getInputProps('status').value === 'B' &&
-                form.getInputProps('valor').value === 0 &&
-                form.setFieldError('valor', 'Valor é obrigatório para bloqueio');
-              form.setFieldValue('valor', ev);
-            }}
+          <InputValor
+            value={form.values.preco}
+            onChangeEvent={(e) => form.setFieldValue('preco', e)}
           />
         </Grid.Col>
       );

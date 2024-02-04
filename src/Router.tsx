@@ -2,6 +2,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { Clientes } from './pages/Clientes';
 import { LoginPage } from './pages/Login';
 import { NewPainelShell } from './components/modules/AppShell';
+import { Produtos } from './pages/Produtos';
 
 const router = createBrowserRouter([
   {
@@ -13,6 +14,14 @@ const router = createBrowserRouter([
     element: (
       <NewPainelShell>
         <Clientes />
+      </NewPainelShell>
+    ),
+  },
+  {
+    path: '/produtos',
+    element: (
+      <NewPainelShell>
+        <Produtos />
       </NewPainelShell>
     ),
   },

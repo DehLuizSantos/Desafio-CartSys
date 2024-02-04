@@ -2,7 +2,7 @@ import { Dispatch, SetStateAction, useState } from 'react';
 import { Navbar } from '@mantine/core';
 import { LinksGroup } from '../../atomos/NavbarLinks';
 import { useMediaQuery } from '@mantine/hooks';
-import { IconUser } from '@tabler/icons-react';
+import { IconUser, IconShoppingCart } from '@tabler/icons-react';
 import * as S from './styles';
 
 type DoubleNavbarProps = {
@@ -20,6 +20,11 @@ export function DoubleNavbar({ expand, setExpand, setTitle }: DoubleNavbarProps)
       label: 'Clientes',
       icon: IconUser,
       link: '/clientes',
+    },
+    {
+      label: 'Produtos',
+      icon: IconShoppingCart,
+      link: '/produtos',
     },
   ];
 
