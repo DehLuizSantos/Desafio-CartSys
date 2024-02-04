@@ -3,54 +3,49 @@ import { Table } from '../../components/organisms/Table';
 import { MRT_ColumnDef } from 'mantine-react-table';
 import { useForm, zodResolver } from '@mantine/form';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { useClient } from '../../hooks/useClients';
 import { Loading } from '../../components/atomos/Loading';
 import { TitleCustom } from '../../components/molecules/Title';
 import { ModalDefault } from '../../components/molecules/ModalDefault';
 import FormBuilder, { Field } from '../../components/organisms/FormBuilder';
 import { notifications } from '@mantine/notifications';
 import { ModalDelete } from '../../components/molecules/ModalDelete';
-import { ClientInitialvalues, userSchema, ClientType } from '../../interfaces/client.interface';
-import { Group, Radio } from '@mantine/core';
+import {
+  ProductType,
+  ProductInitialvalues,
+  productSchema,
+} from '../../interfaces/product.interface';
+import { useProduct } from '../../hooks/useProducts';
+import { Badge } from '@mantine/core';
 
-export function Clientes() {
-  const { handleGetUsers, handlePostUser, handlePutUser, handleDelete } = useClient();
+export function Produtos() {
+  const { handleDeleteProduct, handleGetProducts, handlePostProduct, handlePutProduct } =
+    useProduct();
   const [openModal, setOpenModal] = useState(false);
   const [openModalDelete, setOpenModalDelete] = useState(false);
-  const [isFisicalPerson, setIsFisicalPerson] = useState('fisica');
 
   const { isLoading, data, refetch } = useQuery({
-    queryKey: ['usuarios'],
-    queryFn: () => handleGetUsers(),
+    queryKey: ['products'],
+    queryFn: () => handleGetProducts(),
   });
 
-  const formBuildPropsFisical: Field[] = useMemo(
+  const formBuildProps: Field[] = useMemo(
     () => [
-      { col: 12, label: 'Email', name: 'email', type: 'text', focus: true },
-      { col: 12, label: 'Nome', name: 'nome', type: 'text' },
-      { col: 12, label: 'Cpf', name: 'cpf', type: 'cpf' },
+      { col: 12, label: 'Ativo', name: 'ativo', type: 'checkbox' },
+      { col: 12, label: 'Descrição', name: 'descricao', type: 'text', focus: true },
+      { col: 12, label: 'Estoque', name: 'estoque', type: 'number' },
+      { col: 12, label: 'Preço', name: 'preco', type: 'valor' },
     ],
-    [isFisicalPerson]
-  );
-  const formBuildPropsJuridical: Field[] = useMemo(
-    () => [
-      { col: 12, label: 'Email', name: 'email', type: 'text', focus: true },
-      { col: 12, label: 'Nome', name: 'nome', type: 'text' },
-      { col: 12, label: 'Cnpj', name: 'cnpj', type: 'cnpj' },
-    ],
-    [isFisicalPerson]
+    []
   );
 
-  const [formBuildToRender, setFormBuildToRender] = useState(formBuildPropsFisical);
-
-  const form = useForm<ClientType>({
-    initialValues: ClientInitialvalues,
-    validate: zodResolver(userSchema),
+  const form = useForm<ProductType>({
+    initialValues: ProductInitialvalues,
+    validate: zodResolver(productSchema),
   });
 
-  const addEditUser = useMutation({
-    mutationFn: (data: ClientType) =>
-      data.id ? handlePutUser(data.id, data) : handlePostUser(data),
+  const addEditProduct = useMutation({
+    mutationFn: (data: ProductType) =>
+      data.id ? handlePutProduct(data.id, data) : handlePostProduct(data),
     onError: (error: any) => {
       console.error(error);
       notifications.show({
@@ -63,18 +58,18 @@ export function Clientes() {
     onSuccess: () => {
       notifications.show({
         title: 'Sucesso',
-        message: `Usuário ${form.values.id ? 'editado' : 'cadastrado'} com sucesso!`,
+        message: `Produto ${form.values.id ? 'editado' : 'cadastrado'} com sucesso!`,
       });
       refetch();
       setOpenModal(false);
     },
   });
 
-  const deleteUser = useMutation({
-    mutationFn: () => handleDelete(form.values.id),
+  const deleteProduct = useMutation({
+    mutationFn: () => handleDeleteProduct(form.values.id),
     onSuccess: () => {
       refetch();
-      form.setValues(ClientInitialvalues);
+      form.setValues(ProductInitialvalues);
       setOpenModalDelete(false);
     },
   });
@@ -82,13 +77,26 @@ export function Clientes() {
   const columns = useMemo<MRT_ColumnDef<any>[]>(
     () => [
       {
-        accessorKey: 'nome',
-        header: 'Nome',
+        accessorKey: 'descricao',
+        header: 'Descrição',
       },
 
       {
-        accessorKey: 'email',
-        header: 'Email',
+        accessorKey: 'estoque',
+        header: 'Estoque',
+      },
+      {
+        accessorKey: 'preco',
+        header: 'Preco',
+      },
+      {
+        accessorKey: 'ativo',
+        header: 'Ativo',
+        Cell: ({ renderedCellValue, row }) => (
+          <Badge color={row.original.ativo ? 'green' : 'red'}>
+            {row.original.ativo ? 'ativo' : 'desativado'}
+          </Badge>
+        ),
       },
     ],
     []
@@ -100,7 +108,7 @@ export function Clientes() {
         <Loading />
       ) : (
         <>
-          <TitleCustom title={'Clientes'} />
+          <TitleCustom title={'Produtos'} />
 
           <Table
             refetch={refetch}
@@ -121,7 +129,7 @@ export function Clientes() {
             }}
             data={data!}
             handleAddTable={() => {
-              form.setValues(ClientInitialvalues);
+              form.setValues(ProductInitialvalues);
               setOpenModal(true);
             }}
           />
@@ -135,34 +143,15 @@ export function Clientes() {
             }}
           >
             <>
-              <Radio.Group
-                name="isPessoaFisica"
-                label="Pessoa fisica ou juridica?"
-                value={isFisicalPerson}
-                onChange={(e) => {
-                  console.log(e === 'fisica');
-                  setIsFisicalPerson(e);
-                  setFormBuildToRender(
-                    e === 'fisica' ? formBuildPropsFisical : formBuildPropsJuridical
-                  );
-                }}
-                style={{ margin: '20px 0' }}
-              >
-                <Group mt="xs">
-                  <Radio value="fisica" label="Fisíca" />
-                  <Radio value="juridica" label="Jurídica" />
-                </Group>
-              </Radio.Group>
-
               <FormBuilder
                 form={form}
-                onSubmit={form.onSubmit((values) => addEditUser.mutate(values))}
+                onSubmit={form.onSubmit((values) => addEditProduct.mutate(values))}
                 onCancel={() => {
                   setOpenModal(false);
                   form.reset();
                   refetch();
                 }}
-                fields={formBuildToRender}
+                fields={formBuildProps}
               />
             </>
           </ModalDefault>
@@ -170,9 +159,9 @@ export function Clientes() {
           <ModalDelete
             setOpened={setOpenModalDelete}
             onClose={() => setOpenModalDelete(false)}
-            onConfirm={() => deleteUser.mutate()}
+            onConfirm={() => deleteProduct.mutate()}
             opened={openModalDelete}
-            description={`Tem certeza que deseja deletar o usuário ${form.values.nome}?`}
+            description={`Tem certeza que deseja deletar o produto ${form.values.descricao}?`}
           />
         </>
       )}

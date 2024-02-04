@@ -11,7 +11,7 @@ interface clientStoreType {
 const clients: ClientType[] = [
   {
     email: 'exemplo@exemplo.com',
-    id: 0,
+    id: 1,
     nome: 'exemplo',
     cpf: '08160936958',
     cnpj: null,

@@ -2,7 +2,7 @@ import { useStore } from 'zustand';
 import { useclientsStore } from '../store/Clientes';
 import { ClientType } from '../interfaces/client.interface';
 
-export const useUser = () => {
+export const useClient = () => {
   const { addclient, clients, deleteclient, editclient } = useStore(useclientsStore);
   const handleGetUsers = async () => {
     return clients;
@@ -11,7 +11,7 @@ export const useUser = () => {
   const handlePostUser = async (user: ClientType) => {
     const body = {
       ...user,
-      id: clients.length,
+      id: clients.length + 1,
     };
 
     addclient(body);
