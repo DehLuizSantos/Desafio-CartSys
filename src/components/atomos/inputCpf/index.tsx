@@ -17,7 +17,7 @@ export const Inputcpf = ({ form, focus }: InputcpfProps) => {
       onChange={(event) =>
         form.setFieldValue('cpf', removeAllEspetialCaracters(event.target.value))
       }
-      label={'Cpf'}
+      label={'CPF'}
       maxLength={14}
       error={form.getInputProps('cpf')?.error}
       placeholder={'000.000.000-00'}

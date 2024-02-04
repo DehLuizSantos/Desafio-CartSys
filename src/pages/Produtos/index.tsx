@@ -16,6 +16,7 @@ import {
 } from '../../interfaces/product.interface';
 import { useProduct } from '../../hooks/useProducts';
 import { Badge } from '@mantine/core';
+import { Row } from 'jspdf-autotable';
 
 export function Produtos() {
   const { handleDeleteProduct, handleGetProducts, handlePostProduct, handlePutProduct } =
@@ -88,6 +89,11 @@ export function Produtos() {
       {
         accessorKey: 'preco',
         header: 'Preco',
+        Cell: ({ renderedCellValue, row }) => (
+          <p>
+            {row.original.preco.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
+          </p>
+        ),
       },
       {
         accessorKey: 'ativo',
@@ -112,19 +118,18 @@ export function Produtos() {
 
           <Table
             refetch={refetch}
-            handleDeleteItem={(user) => {
+            handleDeleteItem={(product) => {
               setOpenModalDelete(true);
-              form.setValues(user);
+              form.setValues(product);
             }}
-            handleDoubleClick={(user) => {
-              user.senha = null;
-              form.setValues(user);
+            handleDoubleClick={(product) => {
+              product.senha = null;
+              form.setValues(product);
               setOpenModal(true);
             }}
             columns={columns}
-            handleEditar={(user) => {
-              console.log(user);
-              form.setValues(user);
+            handleEditar={(product) => {
+              form.setValues(product);
               setOpenModal(true);
             }}
             data={data!}

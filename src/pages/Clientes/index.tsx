@@ -115,7 +115,6 @@ export function Clientes() {
             }}
             columns={columns}
             handleEditar={(user) => {
-              console.log(user);
               form.setValues(user);
               setOpenModal(true);
             }}
@@ -140,7 +139,6 @@ export function Clientes() {
                 label="Pessoa fisica ou juridica?"
                 value={isFisicalPerson}
                 onChange={(e) => {
-                  console.log(e === 'fisica');
                   setIsFisicalPerson(e);
                   setFormBuildToRender(
                     e === 'fisica' ? formBuildPropsFisical : formBuildPropsJuridical
