@@ -8,17 +8,17 @@ export const useProduct = () => {
     return product;
   };
 
-  const handlePostProduct = async (user: ProductType) => {
+  const handlePostProduct = async (product: ProductType) => {
     const body = {
-      ...user,
-      id: product.length + 1,
+      ...product,
+      id: product?.id! + 1,
     };
 
     addProduct(body);
     return product;
   };
-  const handlePutProduct = async (id: number | null, user: ProductType) => {
-    editProduct(id, user);
+  const handlePutProduct = async (id: number | null, product: ProductType) => {
+    editProduct(id, product);
     return product;
   };
   const handleDeleteProduct = async (id: number | null) => {

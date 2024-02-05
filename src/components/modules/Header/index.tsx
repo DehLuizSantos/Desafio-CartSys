@@ -30,7 +30,7 @@ const HeaderMenu = ({ setExpand, expand }: IHeaderProps) => {
       </S.Mobile>
       <S.SidebarExpandWrapper>
         <div className="aside">
-          <img src={InfoLuckImg} alt="Infoluck Sistemas" />
+          <h1>Desafio Carsys</h1>
         </div>
       </S.SidebarExpandWrapper>
       <LogoutButton />

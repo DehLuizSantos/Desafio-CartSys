@@ -10,11 +10,18 @@ interface producttoreType {
 
 const products: ProductType[] = [
   {
-    ativo: false,
+    ativo: true,
     id: 1,
-    descricao: 'exemplo',
+    descricao: 'Caixa de ferramentas Bosh',
     estoque: 10,
     preco: 50.0,
+  },
+  {
+    ativo: true,
+    id: 2,
+    descricao: 'Papel de parede cinza escuro',
+    estoque: 15,
+    preco: 150.0,
   },
 ];
 

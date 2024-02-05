@@ -25,7 +25,7 @@ export function Produtos() {
   const [openModalDelete, setOpenModalDelete] = useState(false);
 
   const { isLoading, data, refetch } = useQuery({
-    queryKey: ['products'],
+    queryKey: ['produtos'],
     queryFn: () => handleGetProducts(),
   });
 

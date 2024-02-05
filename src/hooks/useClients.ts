@@ -4,21 +4,21 @@ import { ClientType } from '../interfaces/client.interface';
 
 export const useClient = () => {
   const { addclient, clients, deleteclient, editclient } = useStore(useclientsStore);
-  const handleGetUsers = async () => {
+  const handleGetClients = async () => {
     return clients;
   };
 
-  const handlePostUser = async (user: ClientType) => {
+  const handlePostClient = async (client: ClientType) => {
     const body = {
-      ...user,
+      ...client,
       id: clients.length + 1,
     };
 
     addclient(body);
     return clients;
   };
-  const handlePutUser = async (id: number | null, user: ClientType) => {
-    editclient(id, user);
+  const handlePutClient = async (id: number | null, client: ClientType) => {
+    editclient(id, client);
     return clients;
   };
   const handleDelete = async (id: number | null) => {
@@ -26,5 +26,5 @@ export const useClient = () => {
     return clients;
   };
 
-  return { handleGetUsers, handlePostUser, handlePutUser, handleDelete };
+  return { handleGetClients, handlePostClient, handlePutClient, handleDelete };
 };
