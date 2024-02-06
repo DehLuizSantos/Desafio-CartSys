@@ -5,7 +5,7 @@ import { Checkbox } from '@mantine/core';
 export const OrderFirstSteepWrapper = styled.div`
   ${({ theme }) => css`
     h2 {
-      color: ${theme.colorScheme === 'dark' ? theme.colors.blue['5'] : theme.colors.dark['5']};
+      color: ${theme.colorScheme === 'dark' ? theme.colors.blue['5'] : theme.colors.dark['3']};
       font-size: ${theme.fontSizes.xl};
       margin-top: 45px;
     }
@@ -29,6 +29,11 @@ export const OrderFirstSteepWrapper = styled.div`
 
       button {
       }
+    }
+
+    .search {
+      max-width: 300px;
+      margin: 15px 0;
     }
   `}
 `;

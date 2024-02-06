@@ -26,5 +26,19 @@ export const useProduct = () => {
     return product;
   };
 
-  return { handleGetProducts, handlePostProduct, handlePutProduct, handleDeleteProduct };
+  const handleSearchProduct = async (searchParam: string) => {
+    const searchUpper = searchParam.toLowerCase();
+    const productFiltered = product.filter((item) =>
+      item.descricao.toLowerCase().includes(searchUpper)
+    );
+    return productFiltered;
+  };
+
+  return {
+    handleGetProducts,
+    handlePostProduct,
+    handlePutProduct,
+    handleDeleteProduct,
+    handleSearchProduct,
+  };
 };

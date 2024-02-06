@@ -2,6 +2,7 @@ import { Stepper } from '@mantine/core';
 import * as S from './styles';
 import { useState } from 'react';
 import OrderFirstSteep from '../../components/organisms/OrderFirstSteep';
+import OrderSecoundSteep from '../../components/organisms/OrderSecoundSteep';
 
 export const AssistentePedidos = () => {
   const [active, setActive] = useState(0);
@@ -15,9 +16,11 @@ export const AssistentePedidos = () => {
             label="Pedido"
             description="Escolha o cliente e o produto para realizar o pedido"
           >
-            <OrderFirstSteep />
+            <OrderFirstSteep onNextSteep={nextStep} />
           </Stepper.Step>
-          <Stepper.Step label="Second step" description="Verify email"></Stepper.Step>
+          <Stepper.Step label="Pagamento" description="Selecione qual vai ser a forma de pagamento">
+            <OrderSecoundSteep onGoBackSteep={prevStep} onNextSteep={nextStep} />
+          </Stepper.Step>
           <Stepper.Step label="Final step" description="Get full access">
             Step 3 content: Get full access
           </Stepper.Step>
