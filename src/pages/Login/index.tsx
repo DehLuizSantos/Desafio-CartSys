@@ -1,14 +1,12 @@
 import { Paper, Title } from '@mantine/core';
 import { useForm, zodResolver } from '@mantine/form';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { notifications } from '@mantine/notifications';
-import { FilterDateType, LoginInitialValues, LoginType, loginSchema } from './interface';
+import { LoginInitialValues, LoginType, loginSchema } from '../../interfaces/client.interface';
 import { useLogin } from '../../hooks/useLogin';
 import FormBuilder from '../../components/organisms/FormBuilder';
 import * as S from './styles';
-import InfoluckImg from '../../assets/infoluck.png';
-import { barDate, fistDateMonthBefore, lastDayMounthBefore } from '../../utils/Dates';
 
 export const LoginPage = () => {
   const { handleLogin } = useLogin();
@@ -18,6 +16,7 @@ export const LoginPage = () => {
     validate: zodResolver(loginSchema),
   });
   const queryClient = useQueryClient();
+
   const postLogin = useMutation({
     mutationFn: (data: LoginType) => handleLogin(data),
     onError: (error: any) => {
@@ -34,7 +33,7 @@ export const LoginPage = () => {
         title: 'Sucesso',
         message: 'Login efetuado com sucesso',
       });
-      navigate('/usuarios');
+      navigate('/clientes');
     },
   });
 

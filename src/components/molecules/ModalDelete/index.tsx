@@ -10,7 +10,6 @@ export const ModalDelete = ({ description, onConfirm, setOpened, opened }: Modal
   return (
     <Modal centered opened={opened} onClose={() => setOpened(false)}>
       <S.Wrapper>
-        <h3>Deseja realmente deletar o vinculo?</h3>
         <p>{description}</p>
       </S.Wrapper>
       <Grid mt={30}>
