@@ -3,6 +3,7 @@ import * as S from './styles';
 import { useState } from 'react';
 import OrderFirstSteep from '../../components/organisms/OrderFirstSteep';
 import OrderSecoundSteep from '../../components/organisms/OrderSecoundSteep';
+import OrderTertySteep from '../../components/organisms/OrderTertySteep';
 
 export const AssistentePedidos = () => {
   const [active, setActive] = useState(0);
@@ -21,8 +22,8 @@ export const AssistentePedidos = () => {
           <Stepper.Step label="Pagamento" description="Selecione qual vai ser a forma de pagamento">
             <OrderSecoundSteep onGoBackSteep={prevStep} onNextSteep={nextStep} />
           </Stepper.Step>
-          <Stepper.Step label="Final step" description="Get full access">
-            Step 3 content: Get full access
+          <Stepper.Step label="Endereço" description="Cadastre o endereço para a entrega">
+            <OrderTertySteep onGoBackSteep={prevStep} onNextSteep={nextStep} />
           </Stepper.Step>
           <Stepper.Completed>
             Completed, click back button to get to previous step
