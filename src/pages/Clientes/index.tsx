@@ -14,14 +14,14 @@ import { ClientInitialvalues, userSchema, ClientType } from '../../interfaces/cl
 import { Group, Radio } from '@mantine/core';
 
 export function Clientes() {
-  const { handleGetUsers, handlePostUser, handlePutUser, handleDelete } = useClient();
+  const { handleGetClients, handlePostClient, handlePutClient, handleDelete } = useClient();
   const [openModal, setOpenModal] = useState(false);
   const [openModalDelete, setOpenModalDelete] = useState(false);
   const [isFisicalPerson, setIsFisicalPerson] = useState('fisica');
 
   const { isLoading, data, refetch } = useQuery({
-    queryKey: ['usuarios'],
-    queryFn: () => handleGetUsers(),
+    queryKey: ['clientes'],
+    queryFn: () => handleGetClients(),
   });
 
   const formBuildPropsFisical: Field[] = useMemo(
@@ -50,7 +50,7 @@ export function Clientes() {
 
   const addEditUser = useMutation({
     mutationFn: (data: ClientType) =>
-      data.id ? handlePutUser(data.id, data) : handlePostUser(data),
+      data.id ? handlePutClient(data.id, data) : handlePostClient(data),
     onError: (error: any) => {
       console.error(error);
       notifications.show({

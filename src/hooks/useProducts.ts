@@ -8,17 +8,19 @@ export const useProduct = () => {
     return product;
   };
 
-  const handlePostProduct = async (user: ProductType) => {
+  const handlePostProduct = async (product: ProductType) => {
+    const uuid = Math.floor(Math.random() * 1001); // Gera um número inteiro entre 0 e 1000
+
     const body = {
-      ...user,
-      id: product.length + 1,
+      ...product,
+      id: uuid,
     };
 
     addProduct(body);
     return product;
   };
-  const handlePutProduct = async (id: number | null, user: ProductType) => {
-    editProduct(id, user);
+  const handlePutProduct = async (id: number | null, product: ProductType) => {
+    editProduct(id, product);
     return product;
   };
   const handleDeleteProduct = async (id: number | null) => {
@@ -26,5 +28,19 @@ export const useProduct = () => {
     return product;
   };
 
-  return { handleGetProducts, handlePostProduct, handlePutProduct, handleDeleteProduct };
+  const handleSearchProduct = async (searchParam: string) => {
+    const searchUpper = searchParam.toLowerCase();
+    const productFiltered = product.filter((item) =>
+      item.descricao.toLowerCase().includes(searchUpper)
+    );
+    return productFiltered;
+  };
+
+  return {
+    handleGetProducts,
+    handlePostProduct,
+    handlePutProduct,
+    handleDeleteProduct,
+    handleSearchProduct,
+  };
 };

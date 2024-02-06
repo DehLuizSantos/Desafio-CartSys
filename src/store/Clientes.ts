@@ -10,10 +10,17 @@ interface clientStoreType {
 
 const clients: ClientType[] = [
   {
-    email: 'exemplo@exemplo.com',
+    email: 'andré@carsys.com',
     id: 1,
-    nome: 'exemplo',
+    nome: 'André',
     cpf: '08160936958',
+    cnpj: null,
+  },
+  {
+    email: 'yan@carsys.com',
+    id: 2,
+    nome: 'Yan Oliveira',
+    cpf: '123456789-58',
     cnpj: null,
   },
 ];

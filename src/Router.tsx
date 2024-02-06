@@ -3,6 +3,7 @@ import { Clientes } from './pages/Clientes';
 import { LoginPage } from './pages/Login';
 import { NewPainelShell } from './components/modules/AppShell';
 import { Produtos } from './pages/Produtos';
+import { AssistentePedidos } from './pages/AssistentePedido';
 
 const router = createBrowserRouter([
   {
@@ -22,6 +23,14 @@ const router = createBrowserRouter([
     element: (
       <NewPainelShell>
         <Produtos />
+      </NewPainelShell>
+    ),
+  },
+  {
+    path: '/pedidos',
+    element: (
+      <NewPainelShell>
+        <AssistentePedidos />
       </NewPainelShell>
     ),
   },

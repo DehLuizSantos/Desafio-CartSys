@@ -4,21 +4,23 @@ import { ClientType } from '../interfaces/client.interface';
 
 export const useClient = () => {
   const { addclient, clients, deleteclient, editclient } = useStore(useclientsStore);
-  const handleGetUsers = async () => {
+  const handleGetClients = async () => {
     return clients;
   };
 
-  const handlePostUser = async (user: ClientType) => {
+  const handlePostClient = async (client: ClientType) => {
+    const uuid = Math.floor(Math.random() * 1001); // Gera um número inteiro entre 0 e 1000
+
     const body = {
-      ...user,
-      id: clients.length + 1,
+      ...client,
+      id: uuid,
     };
 
     addclient(body);
     return clients;
   };
-  const handlePutUser = async (id: number | null, user: ClientType) => {
-    editclient(id, user);
+  const handlePutClient = async (id: number | null, client: ClientType) => {
+    editclient(id, client);
     return clients;
   };
   const handleDelete = async (id: number | null) => {
@@ -26,5 +28,5 @@ export const useClient = () => {
     return clients;
   };
 
-  return { handleGetUsers, handlePostUser, handlePutUser, handleDelete };
+  return { handleGetClients, handlePostClient, handlePutClient, handleDelete };
 };

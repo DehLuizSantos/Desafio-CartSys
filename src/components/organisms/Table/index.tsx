@@ -9,8 +9,6 @@ import { ActionIcon, Box, Button, Menu, Text } from '@mantine/core';
 import { Pencil, Trash, Plus, AlertTriangle, Password, Reload } from 'tabler-icons-react';
 import * as S from './styles';
 import { IconDeviceDesktopCancel, IconDownload, IconEdit, IconTrash } from '@tabler/icons-react';
-import jsPDF from 'jspdf';
-import autoTable from 'jspdf-autotable';
 interface TableProps {
   data: any[];
   columns: MRT_ColumnDef<any>[];
@@ -25,7 +23,6 @@ interface TableProps {
   enableRowSelection?: boolean;
   enableRowActions?: boolean;
   loading?: boolean;
-  exportPDF?: boolean;
 }
 
 export const Table = ({
@@ -40,7 +37,6 @@ export const Table = ({
   loading = false,
   enableRowSelection = false,
   enableRowActions = true,
-  exportPDF = false,
   columns,
 }: TableProps) => {
   const table = useMantineReactTable({

@@ -16,7 +16,6 @@ import {
 } from '../../interfaces/product.interface';
 import { useProduct } from '../../hooks/useProducts';
 import { Badge } from '@mantine/core';
-import { Row } from 'jspdf-autotable';
 
 export function Produtos() {
   const { handleDeleteProduct, handleGetProducts, handlePostProduct, handlePutProduct } =
@@ -25,7 +24,7 @@ export function Produtos() {
   const [openModalDelete, setOpenModalDelete] = useState(false);
 
   const { isLoading, data, refetch } = useQuery({
-    queryKey: ['products'],
+    queryKey: ['produtos'],
     queryFn: () => handleGetProducts(),
   });
 

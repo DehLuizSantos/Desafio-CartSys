@@ -29,6 +29,10 @@ export const SidebarExpandWrapper = styled.div`
     .aside {
       display: flex;
       gap: 15px;
+
+      h1 {
+        font-size: ${theme.fontSizes.md};
+      }
     }
 
     svg {
