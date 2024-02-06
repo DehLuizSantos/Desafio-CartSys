@@ -1,4 +1,4 @@
-import { useCallback, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import { Button, TextInput } from '@mantine/core';
 import axios from 'axios';
 import { UseFormReturnType } from '@mantine/form';
@@ -67,6 +67,10 @@ export const InputCep = ({ onSearch, form }: InputCepProps) => {
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     form.setFieldValue('zipCode', e.target.value);
   };
+
+  useEffect(() => {
+    input.current?.focus();
+  }, []);
 
   return (
     <S.InputCepWrapper>

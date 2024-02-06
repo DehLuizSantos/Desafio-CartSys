@@ -8,6 +8,7 @@ import { useProduct } from '../../../hooks/useProducts';
 import { ActionIcon, Button, TextInput } from '@mantine/core';
 import { IconArrowLeft } from '@tabler/icons-react';
 import { ProductType } from '../../../interfaces/product.interface';
+import { usePedidosStore } from '../../../store/Pedido';
 
 type OrderFirstSteepProps = {
   onNextSteep: () => void;
@@ -15,10 +16,14 @@ type OrderFirstSteepProps = {
 
 const OrderFirstSteep = ({ onNextSteep }: OrderFirstSteepProps) => {
   const [clientSelect, setClientSelect] = useState<string[]>([]);
+
   const [produtosSelecteds, setProdutosSelected] = useState<string[]>([]);
   const [productsSearch, setProductsSearch] = useState<ProductType[]>([]);
   const { handleGetClients } = useClient();
   const { handleGetProducts, handleSearchProduct } = useProduct();
+
+  const addCliente = usePedidosStore((state) => state.addClient);
+  const addProducts = usePedidosStore((state) => state.addProducts);
 
   const { isLoading: loadingClientes, data: clientes } = useQuery({
     queryKey: ['clientes'],
@@ -66,6 +71,7 @@ const OrderFirstSteep = ({ onNextSteep }: OrderFirstSteepProps) => {
           {clientSelect.length === 0 ? (
             <S.CheckBoxWrapper
               onChange={(e) => {
+                addCliente(e[0]);
                 setClientSelect(e);
               }}
               value={clientSelect}
@@ -90,6 +96,10 @@ const OrderFirstSteep = ({ onNextSteep }: OrderFirstSteepProps) => {
               <S.CheckBoxWrapper
                 onChange={(e) => {
                   setProdutosSelected(e);
+                  const productsFiltered = produtos?.filter((produto) =>
+                    e.includes(String(produto.id))
+                  );
+                  addProducts(productsFiltered!);
                 }}
                 value={produtosSelecteds}
               >
@@ -97,7 +107,7 @@ const OrderFirstSteep = ({ onNextSteep }: OrderFirstSteepProps) => {
                 {productsSearch?.map((produto) => (
                   <CheckBoxCustom
                     key={produto.id}
-                    value={produto.descricao}
+                    value={String(produto.id)}
                     checkedValue={produto.descricao}
                     label={produto.descricao}
                   />
@@ -109,7 +119,13 @@ const OrderFirstSteep = ({ onNextSteep }: OrderFirstSteepProps) => {
       )}
 
       <div className="button-wrapper">
-        <Button disabled={produtosSelecteds.length === 0} onClick={onNextSteep} fullWidth>
+        <Button
+          disabled={produtosSelecteds.length === 0}
+          onClick={() => {
+            onNextSteep();
+          }}
+          fullWidth
+        >
           Proxima etapa
         </Button>
       </div>

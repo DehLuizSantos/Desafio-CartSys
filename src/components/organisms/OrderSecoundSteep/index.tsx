@@ -3,6 +3,7 @@ import PaymentCard from '../../atomos/PaymentCard';
 import * as S from './styles';
 import { Button } from '@mantine/core';
 import { useState } from 'react';
+import { usePedidosStore } from '../../../store/Pedido';
 
 type OrderSecoundSteepProps = {
   onNextSteep: () => void;
@@ -11,6 +12,8 @@ type OrderSecoundSteepProps = {
 
 const OrderSecoundSteep = ({ onNextSteep, onGoBackSteep }: OrderSecoundSteepProps) => {
   const [paymentOptionSelected, setPaymentOptionSelected] = useState('');
+  const addPaymentMethod = usePedidosStore((state) => state.addPaymentMethod);
+
   const paymentMethods = [
     {
       label: 'Dinheiro',
@@ -41,6 +44,7 @@ const OrderSecoundSteep = ({ onNextSteep, onGoBackSteep }: OrderSecoundSteepProp
           <PaymentCard
             onSelect={(e) => {
               setPaymentOptionSelected(e);
+              addPaymentMethod(e);
             }}
             disable={paymentOptionSelected.length > 0}
             icon={paymentMethod.icon}

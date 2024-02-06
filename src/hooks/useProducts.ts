@@ -9,9 +9,11 @@ export const useProduct = () => {
   };
 
   const handlePostProduct = async (product: ProductType) => {
+    const uuid = Math.floor(Math.random() * 1001); // Gera um número inteiro entre 0 e 1000
+
     const body = {
       ...product,
-      id: product?.id! + 1,
+      id: uuid,
     };
 
     addProduct(body);

@@ -3,9 +3,14 @@ import * as S from './styles';
 import MyTextInput from '../../atomos/MyTextInput';
 import { useForm, zodResolver } from '@mantine/form';
 import { estadosBrasileiros } from '../../../utils/MockEstadosCidades';
-import { Endereco, addressesInitialValue, addressesSchema } from '../../../interfaces/endereco';
+import {
+  Endereco,
+  addressesInitialValue,
+  addressesSchema,
+} from '../../../interfaces/endereco.interface';
 import { InputCep } from '../../atomos/InputCep';
 import { useCallback } from 'react';
+import { usePedidosStore } from '../../../store/Pedido';
 
 type OrderTertySteepProps = {
   onNextSteep: () => void;
@@ -13,6 +18,8 @@ type OrderTertySteepProps = {
 };
 
 const OrderTertySteep = ({ onGoBackSteep, onNextSteep }: OrderTertySteepProps) => {
+  const addAdresses = usePedidosStore((state: any) => state.addAdresses);
+
   const form = useForm<Endereco>({
     validate: zodResolver(addressesSchema),
     initialValues: addressesInitialValue,
@@ -32,7 +39,7 @@ const OrderTertySteep = ({ onGoBackSteep, onNextSteep }: OrderTertySteepProps) =
       <h2>Cadastre o endereço para entrega</h2>
       <S.FormAdressesWrapper>
         <Grid.Col span={12}>
-          <InputCep data-autofocus form={form} onSearch={(e) => handleSearchCep(e)} />
+          <InputCep form={form} onSearch={(e) => handleSearchCep(e)} />
         </Grid.Col>
         <Grid.Col span={9}>
           <MyTextInput label="Rua" {...form.getInputProps('logradouro')} />
@@ -73,7 +80,14 @@ const OrderTertySteep = ({ onGoBackSteep, onNextSteep }: OrderTertySteepProps) =
           </Button>
         </Grid.Col>
         <Grid.Col span={6} mt={30}>
-          <Button fullWidth onClick={() => onNextSteep()} disabled={!form.isValid()}>
+          <Button
+            fullWidth
+            onClick={() => {
+              addAdresses(form.values);
+              onNextSteep();
+            }}
+            disabled={!form.isValid()}
+          >
             Confirmar
           </Button>
         </Grid.Col>

@@ -9,9 +9,11 @@ export const useClient = () => {
   };
 
   const handlePostClient = async (client: ClientType) => {
+    const uuid = Math.floor(Math.random() * 1001); // Gera um número inteiro entre 0 e 1000
+
     const body = {
       ...client,
-      id: clients.length + 1,
+      id: uuid,
     };
 
     addclient(body);

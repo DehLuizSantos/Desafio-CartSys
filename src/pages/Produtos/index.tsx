@@ -16,7 +16,6 @@ import {
 } from '../../interfaces/product.interface';
 import { useProduct } from '../../hooks/useProducts';
 import { Badge } from '@mantine/core';
-import { Row } from 'jspdf-autotable';
 
 export function Produtos() {
   const { handleDeleteProduct, handleGetProducts, handlePostProduct, handlePutProduct } =
